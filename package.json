@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc && node dist/server.js",
     "dev": "nodemon server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "fmt": "deno fmt --ignore=node_modules"
   },
   "author": "Eyoatam Tamirat",
   "license": "ISC",
