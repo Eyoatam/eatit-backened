@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {
+  AddNewFood,
+  DeleteFood,
   GetFood,
   GetFoods,
-  AddNewFood,
   UpdateFood,
-  DeleteFood,
 } from "../controllers/foodController";
 
 export const foodsRouter = Router();

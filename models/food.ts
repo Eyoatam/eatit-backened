@@ -15,6 +15,6 @@ export default class Food {
     public ingredients: Ingredients[],
     public procedures: string,
     public category: FoodCategory,
-    public id?: ObjectId
+    public id?: ObjectId,
   ) {}
 }

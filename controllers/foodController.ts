@@ -6,11 +6,20 @@ import Food from "../models/food";
 export async function GetFoods(req: Request, res: Response): Promise<void> {
   try {
     if (req.query.category && !req.query.price) {
+      console.log("All of jdopalksnqoi");
       filterByCategory();
-    } else if (req.query.category && req.query.price) {
+    } else if (req.query.category && req.query.price && !req.query.calorie) {
+      console.log("dioqhasojosa");
       filterByCategoryAndPrice();
     } else if (req.query.price && !req.query.category) {
+      console.log("All of themqediws ");
       filterByPrice();
+    } else if (req.query.calorie && !req.query.category && !req.query.price) {
+      console.log("Only Calorie");
+      filterByCalorie();
+    } else if (req.query.calorie && req.query.category && req.query.price) {
+      console.log("All of them ");
+      filterByAll();
     } else {
       const foods = await collections.foods.find({}).toArray();
       res.status(200).send(foods);
@@ -20,6 +29,96 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
   }
 
   // Utility Functions
+
+  // filters foods based on calorie, price and catrgory
+  async function filterByAll() {
+    // capitalize the price and category fields in query
+    let price = req.query.price as string;
+    price = price.charAt(0).toUpperCase() + price.slice(1);
+
+    let category = req.query.category as string;
+    category = category.charAt(0).toUpperCase() + category.slice(1);
+
+    // convert calorie to Number
+    const calorie = req.query.calorie as string;
+    const convertedCalorie = parseInt(calorie);
+
+    // declare variables to be used
+    let query, foodsCollection;
+
+    // filter foods by category and price
+    switch (price) {
+      case "Low":
+        query = {
+          price: { $lt: 100 },
+          category: category,
+          calorie: convertedCalorie,
+        };
+        foodsCollection = await collections.foods.find(query).toArray();
+        // check if there is no match
+        if (foodsCollection.length === 0) {
+          res.status(500).json({
+            ok: false,
+            message: `No Food Matches your search`,
+          });
+        } else {
+          res.status(200).send(foodsCollection);
+        }
+        break;
+
+      case "Mid":
+        query = {
+          price: { $gt: 100, $lt: 300 },
+          category: category,
+          calorie: convertedCalorie,
+        };
+        foodsCollection = await collections.foods.find(query).toArray();
+        // check if there is no match
+        if (foodsCollection.length === 0) {
+          res.status(500).json({
+            ok: false,
+            message: `No Food Matches your search`,
+          });
+        } else {
+          res.status(200).send(foodsCollection);
+        }
+        break;
+      case "High":
+        query = {
+          price: { $gt: 300, $lt: 500 },
+          category: category,
+          calorie: convertedCalorie,
+        };
+        foodsCollection = await collections.foods.find(query).toArray();
+        // check if there is no match
+        if (foodsCollection.length === 0) {
+          res.status(500).json({
+            ok: false,
+            message: `No Food Matches your search`,
+          });
+        } else {
+          res.status(200).send(foodsCollection);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  async function filterByCalorie() {
+    const calorie = req.query.calorie as string;
+    // convert calorie to number
+    const query = { calorie: parseInt(calorie) };
+    console.log(parseInt(calorie));
+    const foodsCollection = await collections.foods.find(query).toArray();
+    if (foodsCollection.length === 0) {
+      res.status(500).json({
+        message: `No food found with calorie amount ${calorie}`,
+      });
+    } else {
+      res.status(200).send(foodsCollection);
+    }
+  }
 
   async function filterByCategory() {
     let category = req.query.category as string;
@@ -37,25 +136,6 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
       });
     } else {
       res.status(200).send(foodsWithCategory);
-    }
-  }
-
-  async function checkCategory() {
-    let category = req.query.category as string;
-    // capitalize the category ex: 'lunch' -> 'Lunch'
-    category = category.charAt(0).toUpperCase() + category.slice(1);
-
-    const query = {
-      category,
-    };
-    const foodsWithCategory = await collections.foods.find(query).toArray();
-
-    if (foodsWithCategory.length === 0) {
-      return {
-        message: `No food found with category ${category}`,
-      };
-    } else {
-      return foodsWithCategory;
     }
   }
 
@@ -115,18 +195,20 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
   }
 
   async function filterByCategoryAndPrice() {
-    // capitalize the price ranges
+    // capitalize the price and category fields in query
     let price = req.query.price as string;
     price = price.charAt(0).toUpperCase() + price.slice(1);
+
+    let category = req.query.category as string;
+    category = category.charAt(0).toUpperCase() + category.slice(1);
 
     // declare variables to be used
     let query, foodsCollection;
 
     // filter foods by category and price
     switch (price) {
-      case "Low": {
-        checkCategory();
-        query = { price: { $lt: 100 } };
+      case "Low":
+        query = { price: { $lt: 100 }, category: category };
         foodsCollection = await collections.foods.find(query).toArray();
         // check if there is no match
         if (foodsCollection.length === 0) {
@@ -138,10 +220,9 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
           res.status(200).send(foodsCollection);
         }
         break;
-      }
+
       case "Mid":
-        checkCategory();
-        query = { price: { $gt: 100, $lt: 300 } };
+        query = { price: { $gt: 100, $lt: 300 }, category: category };
         foodsCollection = await collections.foods.find(query).toArray();
         // check if there is no match
         if (foodsCollection.length === 0) {
@@ -154,8 +235,7 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
         }
         break;
       case "High":
-        checkCategory();
-        query = { price: { $gt: 300, $lt: 500 } };
+        query = { price: { $gt: 300, $lt: 500 }, category: category };
         foodsCollection = await collections.foods.find(query).toArray();
         // check if there is no match
         if (foodsCollection.length === 0) {

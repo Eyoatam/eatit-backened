@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { connectToDatabase } from "./services/database";
 import { foodsRouter } from "./routes/foods";
 import morgan from "morgan";

@@ -8,19 +8,19 @@ export async function connectToDatabase() {
   dotenv.config();
 
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(
-    process.env.DB_CONN_STRING
+    process.env.DB_CONN_STRING,
   );
 
   await client.connect();
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
   const foodsCollection: mongoDB.Collection = db.collection(
-    process.env.DB_COLLECTION_NAME
+    process.env.DB_COLLECTION_NAME,
   );
 
   collections.foods = foodsCollection;
 
   console.log(
-    `Successfully connected to database: ${db.databaseName} and collection: ${foodsCollection.collectionName}`
+    `Successfully connected to database: ${db.databaseName} and collection: ${foodsCollection.collectionName}`,
   );
 }

@@ -11,7 +11,6 @@ DB_NAME=""
 DB_COLLECTION_NAME=""
 ```
 
-
 ### Using Docker
 
 ```bash
@@ -42,5 +41,4 @@ yarn build
 
 # build and start the server
 yarn start
-
 ```
