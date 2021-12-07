@@ -11,25 +11,25 @@ export async function connectToDatabase() {
   dotenv.config();
 
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(
-    process.env.DB_CONN_STRING
+    process.env.DB_CONN_STRING,
   );
 
   await client.connect();
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
   const foodsCollection: mongoDB.Collection = db.collection(
-    process.env.FOODS_COLLECTION_NAME
+    process.env.FOODS_COLLECTION_NAME,
   );
 
   collections.foods = foodsCollection;
 
   const usersCollection: mongoDB.Collection = db.collection(
-    process.env.USERS_COLLECTION_NAME
+    process.env.USERS_COLLECTION_NAME,
   );
 
   collections.users = usersCollection;
 
   console.log(
-    `Successfully connected to database: ${db.databaseName} and collection: ${foodsCollection.collectionName}`
+    `Successfully connected to database: ${db.databaseName} and collection: ${foodsCollection.collectionName}`,
   );
 }
