@@ -12,7 +12,7 @@ setupServer();
 
 async function setupServer() {
   try {
-    app.get("/", (req: Request, res: Response, next: NextFunction) => {
+    app.get("/", (_req: Request, res: Response, _next: NextFunction) => {
       res.status(200).json({
         message: "You are on the home endpoint go to /foods to view foods",
       });
