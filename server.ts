@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
-import { connectToDatabase } from "./services/database";
-import { foodsRouter } from "./routes/foods";
+import { connectToDatabase } from "services/database";
+import { foodsRouter } from "routes/foods";
 import morgan from "morgan";
 
 // setup express server

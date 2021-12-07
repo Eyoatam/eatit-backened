@@ -5,7 +5,7 @@ import {
   GetFood,
   GetFoods,
   UpdateFood,
-} from "../controllers/foodController";
+} from "controllers/foodController";
 
 export const foodsRouter = Router();
 

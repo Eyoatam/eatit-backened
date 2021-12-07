@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
-import { collections } from "../services/database";
-import Food from "../models/food";
+import { collections } from "services/database";
+import Food from "models/food";
 import {
   filterByAll,
   filterByCalorie,
   filterByCategory,
   filterByCategoryAndPrice,
   filterByPrice,
-} from "../middlewares/filterFoods";
+} from "middlewares/filterFoods";
 
 // Get All Foods based on query
 export async function GetFoods(req: Request, res: Response): Promise<void> {

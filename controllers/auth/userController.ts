@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { sign } from "jsonwebtoken";
 import { compare, hash } from "bcrypt";
-import { collections } from "../../services/database";
+import { collections } from "services/database";
 
 export async function register(
   req: Request,
   res: Response,
-  _next: NextFunction,
+  _next: NextFunction
 ) {
   try {
     const { name, email, age, password } = req.body;
