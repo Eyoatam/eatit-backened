@@ -10,14 +10,12 @@ export type FoodCategory = "Breakfast" | "Lunch" | "Dinner";
 export type Calorie = 500 | 1000 | 1500 | 2000 | 2500;
 export type Price = "Low" | "Mid" | "High";
 
-export default class Food {
-  constructor(
-    public name: string,
-    public price: Price,
-    public ingredients: Ingredients[],
-    public procedures: string,
-    public category: FoodCategory,
-    public calorie: Calorie,
-    public id?: ObjectId,
-  ) {}
+export default interface Food {
+  name: string;
+  price: Price;
+  ingredients: Ingredients[];
+  procedures: string;
+  category: FoodCategory;
+  calorie: Calorie;
+  id?: ObjectId;
 }
