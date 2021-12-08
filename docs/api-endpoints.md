@@ -61,8 +61,8 @@ Example:
 {
   "name": "test food",
   "ingredients": [
-    { "name": "test ingredient 1", "price": 5 },
-    { "name": "test ingredient 2", "price": 10 }
+    { "name": "test ingredient 1", "price": 5, "amount": 12 },
+    { "name": "test ingredient 2", "price": 10, "amount": 20 }
   ],
   "procedures": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dignissimos atque velit tempora, veniam eveniet incidunt ea. Quia ut alias suscipit voluptates repellendus? Magni recusandae architecto sed quam odit ullam!",
   "category": "Lunch",
