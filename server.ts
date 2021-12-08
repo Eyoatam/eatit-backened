@@ -3,11 +3,13 @@ import { connectToDatabase } from "services/database";
 import { foodsRouter } from "routes/foods";
 import morgan from "morgan";
 import { config } from "dotenv";
+import cors from "cors";
 
 // setup express server
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(morgan("dev"));
 config();
 setupServer();
