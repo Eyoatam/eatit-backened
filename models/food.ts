@@ -1,12 +1,22 @@
 import { ObjectId } from "mongodb";
 
-interface Ingredients {
+export interface Ingredients {
   name: string;
   // price per 1kg
   price: number;
+  // amount in grams
   amount: number;
+  foodGroup: FoodGroup[];
 }
 
+export type FoodGroup =
+  | "Carbohydrate"
+  | "Fat"
+  | "Dietary Fiber"
+  | "Mineral"
+  | "Protein"
+  | "Vitamin"
+  | "Water";
 export type FoodCategory = "Breakfast" | "Lunch" | "Dinner";
 export type Calorie = 500 | 1000 | 1500 | 2000 | 2500;
 export type Price = "Low" | "Mid" | "High";
