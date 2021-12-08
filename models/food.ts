@@ -4,6 +4,7 @@ interface Ingredients {
   name: string;
   // price per 1kg
   price: number;
+  amount: number;
 }
 
 export type FoodCategory = "Breakfast" | "Lunch" | "Dinner";
