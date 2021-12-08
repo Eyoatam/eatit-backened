@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "yarn build && node dist/server.js",
-    "dev": "nodemon",
+    "dev": "nodemon server.ts",
     "build": "tsc && npx tsc-alias",
     "fmt": "deno fmt --ignore=node_modules"
   },
