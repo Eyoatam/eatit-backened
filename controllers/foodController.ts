@@ -61,7 +61,57 @@ export async function GetFood(req: Request, res: Response): Promise<void> {
 // Add a Food
 export async function AddNewFood(req: Request, res: Response): Promise<void> {
   try {
-    const newFood = req.body as Food;
+    const body = req.body as Food;
+    if (
+      !(
+        body.calorie ||
+        body.category ||
+        body.ingredients ||
+        body.name ||
+        body.price ||
+        body.procedures
+      )
+    ) {
+      res.status(500).json({
+        ok: false,
+        message: "All Fields Are Required",
+      });
+    }
+
+    // TODO(@Eyoatam): #2 improve date assigning
+    const date = new Date();
+    const monday = new Date(date.setDate(date.getDate() - date.getDay() + 1));
+    const tuesday = new Date(date.setDate(date.getDate() - date.getDay() + 2));
+    const wednesday = new Date(
+      date.setDate(date.getDate() - date.getDay() + 3)
+    );
+    const thursday = new Date(date.setDate(date.getDate() - date.getDay() + 4));
+    const friday = new Date(date.setDate(date.getDate() - date.getDay() + 5));
+    const saturday = new Date(date.setDate(date.getDate() - date.getDay() + 6));
+    const sunday = new Date(date.setDate(date.getDate() - date.getDay() + 7));
+
+    const days = [
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
+    ];
+
+    const randomDate = new Date(
+      days[Math.floor(Math.random() * 7)].setDate(Math.floor(Math.random() * 7))
+    );
+
+    const filteredFood = collections.foods.find({ date: randomDate });
+    const newFood = { ...body, date: randomDate };
+    // if ((await filteredFood.count()) < 1) {
+    //   newFood = { ...body, date: randomDate };
+    // } else {
+    //   newFood = { ...body, date: randomDate };
+    // }
+
     const result = await collections.foods.insertOne(newFood);
 
     if (result) {

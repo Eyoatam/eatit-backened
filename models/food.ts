@@ -17,5 +17,6 @@ export default interface Food {
   procedures: string;
   category: FoodCategory;
   calorie: Calorie;
+  date: string;
   id?: ObjectId;
 }
