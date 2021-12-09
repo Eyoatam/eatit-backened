@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { connectToDatabase } from "services/database";
-import { foodsRouter } from "routes/foods";
+import { foodsRouter, sharedFoodsRouter } from "routes/index";
 import morgan from "morgan";
 import { config } from "dotenv";
 import cors from "cors";
@@ -22,6 +22,7 @@ async function setupServer() {
       });
     });
     app.use("/foods", foodsRouter);
+    app.use("/sharedFoods", sharedFoodsRouter);
     // 404 Handler
     app.use((_req, res, _next) => {
       res.status(404).json({
