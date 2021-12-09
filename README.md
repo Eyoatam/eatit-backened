@@ -8,7 +8,11 @@
 PORT=""
 DB_CONN_STRING=""
 DB_NAME=""
+JWT_KEY="
 DB_COLLECTION_NAME=""
+USERS_COLLECTION_NAME=""
+FOODS_COLLECTION_NAME=""
+SHARED_FOODS_COLLECTION_NAME=""
 ```
 
 ### Using Docker
@@ -36,8 +40,8 @@ yarn
 # start dev server
 yarn dev
 
-# compile ts 
-yarn build 
+# compile ts
+yarn build
 
 # build and start the server
 yarn start
