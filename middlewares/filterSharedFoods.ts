@@ -10,7 +10,7 @@ export async function filterByCalorie(
 ) {
   // convert calorie to number
   const query = { calorie: parseInt(calorie) };
-  const result = await collections.foods.find(query).toArray();
+  const result = await collections.sharedFoods.find(query).toArray();
   if (result.length === 0) {
     res.status(500).json({
       message: `No food found with calorie amount ${calorie}`,
@@ -33,7 +33,7 @@ export async function filterByCategory(
   const query = {
     category,
   };
-  const result = await collections.foods.find(query).toArray();
+  const result = await collections.sharedFoods.find(query).toArray();
 
   if (result.length === 0) {
     res.status(500).json({
@@ -60,7 +60,7 @@ export async function filterByPrice(
   switch (price) {
     case "Low": {
       query = { price: { $lt: 100 } };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -74,7 +74,7 @@ export async function filterByPrice(
     }
     case "Mid":
       query = { price: { $gt: 100, $lt: 300 } };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -87,7 +87,7 @@ export async function filterByPrice(
       break;
     case "High":
       query = { price: { $gt: 300, $lt: 500 } };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -134,7 +134,7 @@ export async function filterByAll(
         category: category,
         calorie: convertedCalorie,
       };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -152,7 +152,7 @@ export async function filterByAll(
         category: category,
         calorie: convertedCalorie,
       };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -169,7 +169,7 @@ export async function filterByAll(
         category: category,
         calorie: convertedCalorie,
       };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -205,7 +205,7 @@ export async function filterByCategoryAndPrice(
     case "Low":
       // const filteredFood = checkCategory();
       query = { price: { $lt: 100 }, category: category };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -219,7 +219,7 @@ export async function filterByCategoryAndPrice(
 
     case "Mid":
       query = { price: { $gt: 100, $lt: 300 }, category: category };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({
@@ -232,7 +232,7 @@ export async function filterByCategoryAndPrice(
       break;
     case "High":
       query = { price: { $gt: 300, $lt: 500 }, category: category };
-      result = await collections.foods.find(query).toArray();
+      result = await collections.sharedFoods.find(query).toArray();
       // check if there is no match
       if (result.length === 0) {
         res.status(500).json({

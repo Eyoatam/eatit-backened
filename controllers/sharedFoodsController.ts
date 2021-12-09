@@ -1,38 +1,41 @@
 import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "services/database";
-import Food from "models/food";
-import {
-  filterByAll,
-  filterByCalorie,
-  filterByCategory,
-  filterByCategoryAndPrice,
-  filterByPrice,
-} from "middlewares/filterFoods";
+import { SharedFood } from "models/food";
 
-// Get All Foods based on query
-export async function GetFoods(req: Request, res: Response): Promise<void> {
+import {
+  filterByAll as filterSharedFoodsByAll,
+  filterByCalorie as filterSharedFoodsByCalorie,
+  filterByCategory as filterSharedFoodsByCategory,
+  filterByCategoryAndPrice as filterSharedFoodsByCategoryAndPrice,
+  filterByPrice as filterSharedFoodsByPrice,
+} from "middlewares/filterSharedFoods";
+
+export async function GetSharedFoods(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
     if (req.query.category && !req.query.price) {
       const category = req.query.category as string;
-      filterByCategory(category, req, res);
+      filterSharedFoodsByCategory(category, req, res);
     } else if (req.query.category && req.query.price && !req.query.calorie) {
       const category = req.query.category as string;
       const price = req.query.price as string;
-      filterByCategoryAndPrice(category, price, req, res);
+      filterSharedFoodsByCategoryAndPrice(category, price, req, res);
     } else if (req.query.price && !req.query.category) {
       const price = req.query.price as string;
-      filterByPrice(price, req, res);
+      filterSharedFoodsByPrice(price, req, res);
     } else if (req.query.calorie && !req.query.category && !req.query.price) {
       const calorie = req.query.calorie as string;
-      filterByCalorie(calorie, req, res);
+      filterSharedFoodsByCalorie(calorie, req, res);
     } else if (req.query.calorie && req.query.category && req.query.price) {
       const category = req.query.category as string;
       const price = req.query.price as string;
       const calorie = req.query.calorie as string;
-      filterByAll(category, price, calorie, req, res);
+      filterSharedFoodsByAll(category, price, calorie, req, res);
     } else {
-      const foods = await collections.foods.find({}).toArray();
+      const foods = await collections.sharedFoods.find({}).toArray();
       res.status(200).send(foods);
     }
   } catch (error) {
@@ -40,28 +43,33 @@ export async function GetFoods(req: Request, res: Response): Promise<void> {
   }
 }
 
-// Get a Single Food
-export async function GetFood(req: Request, res: Response): Promise<void> {
+export async function GetSharedFood(
+  req: Request,
+  res: Response,
+): Promise<void> {
   const id = req?.params?.id;
   try {
     const query = { _id: new ObjectId(id) };
-    const food = await collections.foods.findOne(query);
+    const result = await collections.sharedFoods.findOne(query);
 
-    if (food) {
-      res.status(200).send(food);
+    if (result) {
+      res.status(200).send(result);
     }
   } catch (error) {
     res.status(404).json({
       ok: false,
-      message: `Unable to find matching document with id: ${req.params.id}`,
+      message: `Unable to find food with id: ${req.params.id}`,
     });
   }
 }
 
-// Add a Food
-export async function AddNewFood(req: Request, res: Response): Promise<void> {
+// Add a Shared Food
+export async function AddNewSharedFood(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
-    const body = req.body as Food;
+    const body = req.body as SharedFood;
     if (
       !(
         body.calorie ||
@@ -108,7 +116,7 @@ export async function AddNewFood(req: Request, res: Response): Promise<void> {
 
     const newFood = { ...body, date: randomDate };
 
-    const result = await collections.foods.insertOne(newFood);
+    const result = await collections.sharedFoods.insertOne(newFood);
 
     if (result) {
       res.status(201).json({
@@ -128,13 +136,16 @@ export async function AddNewFood(req: Request, res: Response): Promise<void> {
 }
 
 // Update Food
-export async function UpdateFood(req: Request, res: Response): Promise<void> {
+export async function UpdateSharedFood(
+  req: Request,
+  res: Response,
+): Promise<void> {
   const id = req?.params?.id;
   try {
-    const updatedFood: Food = req.body as Food;
+    const updatedFood: SharedFood = req.body as SharedFood;
     const query = { _id: new ObjectId(id) };
 
-    const result = await collections.foods.updateOne(query, {
+    const result = await collections.sharedFoods.updateOne(query, {
       $set: updatedFood,
     });
 
@@ -159,11 +170,14 @@ export async function UpdateFood(req: Request, res: Response): Promise<void> {
 }
 
 // Delete Food
-export async function DeleteFood(req: Request, res: Response): Promise<void> {
+export async function DeleteSharedFood(
+  req: Request,
+  res: Response,
+): Promise<void> {
   const id = req?.params?.id;
   try {
     const query = { _id: new ObjectId(id) };
-    const result = await collections.foods.deleteOne(query);
+    const result = await collections.sharedFoods.deleteOne(query);
 
     if (result && result.deletedCount) {
       res
