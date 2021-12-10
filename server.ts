@@ -41,3 +41,5 @@ async function setupServer() {
     process.exit(1);
   }
 }
+
+export class Code extends ReadableStream {}
