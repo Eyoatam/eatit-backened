@@ -3,7 +3,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES5",
+    "target": "ESNext",
     "noImplicitAny": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
@@ -19,11 +19,5 @@
       "middlewares/*": ["middlewares/*"]
     }
   },
-  "include": ["./**/*"],
-  "exclude": [
-    "node_modules",
-    "./node_modules",
-    "./node_modules/*",
-    "./node_modules/@types/mongoose/index.d.ts"
-  ]
+  "include": ["./**/*"]
 }
