@@ -4,36 +4,36 @@ import { collections } from "services/database";
 import { SharedFood } from "models/food";
 
 import {
-  filterByAll as filterSharedFoodsByAll,
-  filterByCalorie as filterSharedFoodsByCalorie,
-  filterByCategory as filterSharedFoodsByCategory,
-  filterByCategoryAndPrice as filterSharedFoodsByCategoryAndPrice,
-  filterByPrice as filterSharedFoodsByPrice,
+  filterByAll,
+  filterByCalorie,
+  filterByCategory,
+  filterByCategoryAndPrice,
+  filterByPrice,
 } from "middlewares/filterSharedFoods";
 
 export async function GetSharedFoods(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   try {
     if (req.query.category && !req.query.price) {
       const category = req.query.category as string;
-      filterSharedFoodsByCategory(category, req, res);
+      filterByCategory(category, req, res);
     } else if (req.query.category && req.query.price && !req.query.calorie) {
       const category = req.query.category as string;
       const price = req.query.price as string;
-      filterSharedFoodsByCategoryAndPrice(category, price, req, res);
+      filterByCategoryAndPrice(category, price, req, res);
     } else if (req.query.price && !req.query.category) {
       const price = req.query.price as string;
-      filterSharedFoodsByPrice(price, req, res);
+      filterByPrice(price, req, res);
     } else if (req.query.calorie && !req.query.category && !req.query.price) {
       const calorie = req.query.calorie as string;
-      filterSharedFoodsByCalorie(calorie, req, res);
+      filterByCalorie(calorie, req, res);
     } else if (req.query.calorie && req.query.category && req.query.price) {
       const category = req.query.category as string;
       const price = req.query.price as string;
       const calorie = req.query.calorie as string;
-      filterSharedFoodsByAll(category, price, calorie, req, res);
+      filterByAll(category, price, calorie, req, res);
     } else {
       const foods = await collections.sharedFoods.find({}).toArray();
       res.status(200).send(foods);
@@ -45,7 +45,7 @@ export async function GetSharedFoods(
 
 export async function GetSharedFood(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   const id = req?.params?.id;
   try {
@@ -66,7 +66,7 @@ export async function GetSharedFood(
 // Add a Shared Food
 export async function AddNewSharedFood(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   try {
     const body = req.body as SharedFood;
@@ -91,7 +91,7 @@ export async function AddNewSharedFood(
     const monday = new Date(date.setDate(date.getDate() - date.getDay() + 1));
     const tuesday = new Date(date.setDate(date.getDate() - date.getDay() + 2));
     const wednesday = new Date(
-      date.setDate(date.getDate() - date.getDay() + 3),
+      date.setDate(date.getDate() - date.getDay() + 3)
     );
     const thursday = new Date(date.setDate(date.getDate() - date.getDay() + 4));
     const friday = new Date(date.setDate(date.getDate() - date.getDay() + 5));
@@ -109,9 +109,7 @@ export async function AddNewSharedFood(
     ];
 
     const randomDate = new Date(
-      days[Math.floor(Math.random() * 7)].setDate(
-        Math.floor(Math.random() * 7),
-      ),
+      days[Math.floor(Math.random() * 7)].setDate(Math.floor(Math.random() * 7))
     );
 
     const newFood = { ...body, date: randomDate };
@@ -138,7 +136,7 @@ export async function AddNewSharedFood(
 // Update Food
 export async function UpdateSharedFood(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   const id = req?.params?.id;
   try {
@@ -172,7 +170,7 @@ export async function UpdateSharedFood(
 // Delete Food
 export async function DeleteSharedFood(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   const id = req?.params?.id;
   try {
