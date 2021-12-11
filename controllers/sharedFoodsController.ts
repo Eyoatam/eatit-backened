@@ -13,7 +13,7 @@ import {
 
 export async function GetSharedFoods(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   try {
     if (req.query.category && !req.query.price) {
@@ -45,7 +45,7 @@ export async function GetSharedFoods(
 
 export async function GetSharedFood(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const id = req?.params?.id;
   try {
@@ -66,7 +66,7 @@ export async function GetSharedFood(
 // Add a Shared Food
 export async function AddNewSharedFood(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   try {
     const body = req.body as SharedFood;
@@ -91,7 +91,7 @@ export async function AddNewSharedFood(
     const monday = new Date(date.setDate(date.getDate() - date.getDay() + 1));
     const tuesday = new Date(date.setDate(date.getDate() - date.getDay() + 2));
     const wednesday = new Date(
-      date.setDate(date.getDate() - date.getDay() + 3)
+      date.setDate(date.getDate() - date.getDay() + 3),
     );
     const thursday = new Date(date.setDate(date.getDate() - date.getDay() + 4));
     const friday = new Date(date.setDate(date.getDate() - date.getDay() + 5));
@@ -109,7 +109,9 @@ export async function AddNewSharedFood(
     ];
 
     const randomDate = new Date(
-      days[Math.floor(Math.random() * 7)].setDate(Math.floor(Math.random() * 7))
+      days[Math.floor(Math.random() * 7)].setDate(
+        Math.floor(Math.random() * 7),
+      ),
     );
 
     const newFood = { ...body, date: randomDate };
@@ -136,7 +138,7 @@ export async function AddNewSharedFood(
 // Update Food
 export async function UpdateSharedFood(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const id = req?.params?.id;
   try {
@@ -170,7 +172,7 @@ export async function UpdateSharedFood(
 // Delete Food
 export async function DeleteSharedFood(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const id = req?.params?.id;
   try {

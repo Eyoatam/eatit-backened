@@ -6,7 +6,7 @@ export async function filterByCalorie(
   calorie: string,
   _req: Request,
   res: Response,
-  _next?: NextFunction
+  _next?: NextFunction,
 ) {
   // convert calorie to number
   const query = { calorie: parseInt(calorie) };
@@ -24,11 +24,11 @@ export async function filterByCategory(
   category: string,
   _req: Request,
   res: Response,
-  _next?: NextFunction
+  _next?: NextFunction,
 ) {
   // capitalize the category ex: 'lunch' -> 'Lunch'
-  category =
-    (category as FoodCategory).charAt(0).toUpperCase() + category.slice(1);
+  category = (category as FoodCategory).charAt(0).toUpperCase() +
+    category.slice(1);
 
   const query = {
     category,
@@ -48,7 +48,7 @@ export async function filterByPrice(
   price: string,
   _req: Request,
   res: Response,
-  _next?: NextFunction
+  _next?: NextFunction,
 ) {
   // capitalize the category ex: 'low' -> 'Low'
   price = (price as Price).charAt(0).toUpperCase() + price.slice(1);
@@ -108,7 +108,7 @@ export async function filterByAll(
   calorie: string,
   _req: Request,
   res: Response,
-  _next?: NextFunction
+  _next?: NextFunction,
 ) {
   // capitalize the price and category fields in query
   // let price = req.query.price as string;
@@ -189,7 +189,7 @@ export async function filterByCategoryAndPrice(
   price: string,
   _req: Request,
   res: Response,
-  _next?: NextFunction
+  _next?: NextFunction,
 ) {
   // capitalize the price and category fields in query
   price = price.charAt(0).toUpperCase() + price.slice(1);
