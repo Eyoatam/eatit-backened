@@ -17,8 +17,9 @@ export async function register(
       });
     }
 
-    const oldUser = await collections.users.findOne({ email });
-    if (oldUser) {
+    // check if user exists
+    const user = await collections.users.findOne({ email });
+    if (user) {
       res.status(409).json({
         ok: false,
         message: "User already exists, login instead",
