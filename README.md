@@ -32,7 +32,7 @@ docker compose up
 
 ```bash
 # clone repo
-git clone https://github.com/Eyoatam/Eatit-api.git
+git clone https://github.com/Eyoatam/Eatit-Server.git
 
 # install dependencies
 yarn
