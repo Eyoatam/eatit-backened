@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   api:
-    image: eatit-api
+    image: eatit-api-server
     build:
       context: .
       dockerfile: ./Dockerfile
