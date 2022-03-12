@@ -1,4 +1,4 @@
-# Eatit-api
+# Eatit-Server
 
 ## Project setup
 
@@ -19,7 +19,7 @@ SHARED_FOODS_COLLECTION_NAME=""
 
 ```bash
 # clone repo
-git clone https://github.com/Eyoatam/Eatit-api.git
+git clone https://github.com/Eyoatam/Eatit-Server.git
 
 # build image
 docker build -t eatit-api .
